@@ -11,19 +11,19 @@ function search(
     column: number,
     row: number
 ) {
-    if (column < 0 || row < 0) {
+    if (column < 0 || row > array.length) {
         return false;
     } else if (array[column][row] === target) {
         return true;
     }
 
-    let middle = Math.floor(array.length / 2);
-    let midPointRow = array[middle][middle];
+    //let middle = Math.floor(array.length / 2);
+    let currentValue = array[column][row];
 
-    if (midPointRow < target) {
+    if (currentValue < target) {
         return search(array, target, column - 1, row);
     } else {
-        return search(array, target, column, row - 1);
+        return search(array, target, column, row + 1);
     }
 }
 
