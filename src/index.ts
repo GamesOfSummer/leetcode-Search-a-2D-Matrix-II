@@ -8,34 +8,37 @@ import {
 function search(
     array: number[][],
     target: number,
-    column: number,
-    row: number
+    currentColumn: number,
+    currentRow: number
 ) {
-    if (column < 0 || row > array.length) {
+    if (
+        currentColumn < 0 ||
+        currentRow < 0 ||
+        currentRow > array.length ||
+        currentColumn > array.length
+    ) {
         return false;
-    } else if (array[column][row] === target) {
+    } else if (array[currentColumn][currentRow] === target) {
         return true;
     }
 
-    //let middle = Math.floor(array.length / 2);
-    let currentValue = array[column][row];
+    let middleRow = Math.floor(array.length / 2) + currentRow;
+    let middleColumn = Math.floor(array.length / 2) + currentColumn;
+    let currentValue = array[middleColumn][middleRow];
 
     if (currentValue < target) {
-        return search(array, target, column - 1, row);
+        return search(array, target, currentColumn - 1, currentRow);
     } else {
-        return search(array, target, column, row + 1);
+        return search(array, target, currentColumn, currentRow + 1);
     }
 }
 
 function searchMatrix(array: number[][], target: number): boolean {
-    if (array.length < 1) {
-        return false;
-    }
+    //let middle = Math.floor(array.length / 2);
 
-    let middle = Math.floor(array.length / 2);
-    let midPointRow = array[middle][middle];
+    let currentValue = array[2][3]; // column IS 2nd place!
 
-    return search(array, target, middle, middle);
+    return search(array, target, 0, 0);
 }
 
 consoleStart();
