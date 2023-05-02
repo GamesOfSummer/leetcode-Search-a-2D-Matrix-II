@@ -5,40 +5,20 @@ import {
     validateFxn,
 } from './helpers.js';
 
-function search(
-    array: number[][],
-    target: number,
-    currentColumn: number,
-    currentRow: number
-) {
-    if (
-        currentColumn < 0 ||
-        currentRow < 0 ||
-        currentRow > array.length ||
-        currentColumn > array.length
-    ) {
-        return false;
-    } else if (array[currentColumn][currentRow] === target) {
-        return true;
-    }
-
-    let middleRow = Math.floor(array.length / 2) + currentRow;
-    let middleColumn = Math.floor(array.length / 2) + currentColumn;
-    let currentValue = array[middleColumn][middleRow];
-
-    if (currentValue < target) {
-        return search(array, target, currentColumn - 1, currentRow);
-    } else {
-        return search(array, target, currentColumn, currentRow + 1);
-    }
-}
-
 function searchMatrix(array: number[][], target: number): boolean {
-    //let middle = Math.floor(array.length / 2);
+    let row = 0;
+    let col = array[0].length - 1;
+    while (row < array.length && col >= 0) {
+        if (array[row][col] === target) {
+            return true;
+        } else if (array[row][col] > target) {
+            col--;
+        } else {
+            row++;
+        }
+    }
 
-    let currentValue = array[2][3]; // column IS 2nd place!
-
-    return search(array, target, 0, 0);
+    return false;
 }
 
 consoleStart();
